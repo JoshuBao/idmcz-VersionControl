@@ -12,11 +12,15 @@ public class Index {
 		
 	}
 	
-	public void createBlob (String fileName) throws IOException {
+	public void addBlob (String fileName) throws IOException {
 		Blob newbie = new Blob (fileName);
 		hashie.put(fileName, newbie);
 		
 		fw.append(fileName);
 		fw.append(newbie.name());
+	}
+	
+	public void removeBlob (String fileName) {
+		hashie.remove(fileName);
 	}
 }

@@ -17,7 +17,7 @@ public class Blob {
 	public Blob (String filePath) throws IOException {
 		sha1 = encrypt (filePath);
 		Scanner original = new Scanner(new File(filePath));//scanning filePath contents
-		FileWriter fw = new FileWriter(sha1);//output file
+		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
 		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
 		while(original.hasNextLine())
 	     {
