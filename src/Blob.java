@@ -34,6 +34,10 @@ public class Blob {
 		//create new file w stuff in it
 	}
 	
+	public String name () {
+		return sha1;
+	}
+	
 	public static String encrypt(String input)
     {
         try {

@@ -4,15 +4,19 @@ import java.util.HashMap;
 
 public class Index {
 	HashMap<String, Blob> hashie;
+	FileWriter fw;
 	
 	public Index (String fileName) throws IOException {
-		FileWriter fw = new FileWriter("index");//output file
+		fw = new FileWriter("index");//output file
 		hashie = new HashMap <String, Blob>();
-		hashie.put(fileName, createBlob(fileName));
+		
 	}
 	
-	public Blob createBlob (String fileName) throws IOException {
+	public void createBlob (String fileName) throws IOException {
 		Blob newbie = new Blob (fileName);
-		return newbie;
+		hashie.put(fileName, newbie);
+		
+		fw.append(fileName);
+		fw.append(newbie.name());
 	}
 }
