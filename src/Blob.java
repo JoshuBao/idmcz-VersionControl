@@ -16,7 +16,11 @@ public class Blob {
 	
 	public Blob (String filePath) throws IOException {
 		sha1 = encrypt (filePath);
+		
+		// TODO: The file contents should be hashed, not the file path.
 		Scanner original = new Scanner(new File(filePath));//scanning filePath contents
+		
+		// TODO: There is a FileNotFoundException being thrown if the file does not already exist. Check if the file exists and create it if it doesn't.
 		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
 		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
 		while(original.hasNextLine())
