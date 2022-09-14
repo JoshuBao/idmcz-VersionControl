@@ -16,22 +16,23 @@ public class Blob {
 	
 	public Blob (String filePath) throws IOException {
 		Scanner original = new Scanner(new File(filePath));//scanning filePath contents
-		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
-		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
 		String s = "";
 		while(original.hasNextLine())
 	     {
 	        s = original.nextLine();
-	        printW.write(s);
+//	        printW.write(s);
 	     }
 		if(original != null) {
 		       original.close();  
-		    }
-		    if(printW != null) {
-		      printW.flush();
-		      printW.close();
-		     }
-		    sha1 = encrypt (s);
+		   }
+		sha1 = encrypt (s);
+		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
+		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
+		printW.write(s);
+		if(printW != null) {
+		   printW.flush();
+		   printW.close();
+		}
 		//create new file w stuff in it
 	}
 	
