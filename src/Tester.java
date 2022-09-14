@@ -27,8 +27,14 @@ class Tester {
 		}
 		Files.writeString(testerFile, "hello from JUnit");
 		
-//		if(Files.exists(Paths.get("Objects"))) deleteDirectory(Paths.get("Objects").toFile());
-//		if(Files.exists(Paths.get("index"))) Files.delete(Paths.get("index"));
+		testerFile = Paths.get("junit2.txt");
+		if(!Files.exists(testerFile)) {
+			Files.createFile(testerFile);
+		}
+		Files.writeString(testerFile, "According to all known laws of aviation, there is no way a bee should be able to fly.");
+		
+		if(Files.exists(Paths.get("Objects"))) deleteDirectory(Paths.get("Objects").toFile());
+		if(Files.exists(Paths.get("index"))) Files.delete(Paths.get("index"));
 		
 	}
 
@@ -42,7 +48,8 @@ class Tester {
 			assertTrue(Files.exists(Paths.get("objects")));
 			assertTrue(Files.exists(Paths.get("index")));
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -60,7 +67,8 @@ class Tester {
 			assertEquals(Files.readString(path), "hello from JUnit");
 			
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -73,9 +81,12 @@ class Tester {
 			String indexContent = Files.readString(Paths.get("index"));
 			// You may need to modify the next line depending on if you're putting spaces between the colon, adding a trailing newline at the end of the file, etc
 			assertEquals(indexContent, "junit.txt:d577a8113be0f1aaa3ee3618107b2f95a747423c");
-			
+			idx.addBlob("junit2.txt");
+			indexContent = Files.readString(Paths.get("index"));
+			assertEquals(indexContent, "junit.txt:d577a8113be0f1aaa3ee3618107b2f95a747423c\njunit2.txt:6e97dba1aafc15a1358a57d52a710ab6598f12be");
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -85,15 +96,22 @@ class Tester {
 		try {
 			idx = new Index("this string does nothing");
 			idx.addBlob("junit.txt");
+			idx.addBlob("junit2.txt");
 			String indexContent = Files.readString(Paths.get("index"));
-			// You may need to modify the next line depending on if you're putting spaces between the colon, adding a trailing newline at the end of the file, etc
-			assertEquals(indexContent, "junit.txt:d577a8113be0f1aaa3ee3618107b2f95a747423c");
+			assertEquals(indexContent, "junit.txt:d577a8113be0f1aaa3ee3618107b2f95a747423c\\njunit2.txt:6e97dba1aafc15a1358a57d52a710ab6598f12be");
+			
 			idx.removeBlob("junit.txt");
 			indexContent = Files.readString(Paths.get("index"));
-			// You may need to modify the next line depending on if you're adding a trailing newline at the end of the file, etc
+			assertEquals(indexContent, "junit2.txt:6e97dba1aafc15a1358a57d52a710ab6598f12be");
+			assertFalse(Files.exists(Paths.get("junit.txt")));
+			
+			idx.removeBlob("junit2.txt");
+			indexContent = Files.readString(Paths.get("index"));
 			assertEquals(indexContent, "");
+			assertFalse(Files.exists(Paths.get("junit2.txt")));
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			fail();
 		}
 	}
 

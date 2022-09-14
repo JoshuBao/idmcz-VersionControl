@@ -10,7 +10,7 @@ public class Index {
 	// TODO: Why does Index ctor take in a fileName param?
 	// TODO: Your methods should probably handle the exceptions, not pass them on to the caller...
 	public Index (String fileName) throws IOException {
-		initialize ();
+		initialize (); // TODO: You should probably not call initialize in the constructor.
 	}
 	
 	public void initialize () throws IOException {
