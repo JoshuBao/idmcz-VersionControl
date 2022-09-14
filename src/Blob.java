@@ -11,17 +11,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 public class Blob {
-	String filePath = "";
+//	String filePath = "";
 	String sha1 = "";
 	
 	public Blob (String filePath) throws IOException {
-		sha1 = encrypt (filePath);
 		Scanner original = new Scanner(new File(filePath));//scanning filePath contents
 		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
 		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
+		String s = "";
 		while(original.hasNextLine())
 	     {
-	        String s = original.nextLine();
+	        s = original.nextLine();
 	        printW.write(s);
 	     }
 		if(original != null) {
@@ -31,6 +31,7 @@ public class Blob {
 		      printW.flush();
 		      printW.close();
 		     }
+		    sha1 = encrypt (s);
 		//create new file w stuff in it
 	}
 	
