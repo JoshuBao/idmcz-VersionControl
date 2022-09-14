@@ -18,7 +18,6 @@ public class Blob {
 		sha1 = encrypt (filePath);
 		Scanner original = new Scanner(new File(filePath));//scanning filePath contents
 		
-		// TODO: There is a FileNotFoundException being thrown if the file does not already exist. Check if the file exists and create it if it doesn't.
 		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
 		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
 		String s = "";

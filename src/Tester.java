@@ -33,8 +33,8 @@ class Tester {
 		}
 		Files.writeString(testerFile, "According to all known laws of aviation, there is no way a bee should be able to fly.");
 		
-		if(Files.exists(Paths.get("Objects"))) deleteDirectory(Paths.get("Objects").toFile());
-		if(Files.exists(Paths.get("index"))) Files.delete(Paths.get("index"));
+//		if(Files.exists(Paths.get("objects"))) deleteDirectory(Paths.get("objects").toFile());
+//		if(Files.exists(Paths.get("index"))) Files.delete(Paths.get("index"));
 		
 	}
 
@@ -61,6 +61,7 @@ class Tester {
 	@Test
 	void TestBlob() {
 		try {
+			if(!Files.exists(Paths.get("objects"))) Files.createDirectory(Paths.get("objects"));
 			Blob blob = new Blob("junit.txt");
 			Path path = Paths.get("objects/d577a8113be0f1aaa3ee3618107b2f95a747423c");
 			assertTrue(Files.exists(path));

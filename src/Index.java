@@ -7,10 +7,8 @@ public class Index {
 	HashMap<String, Blob> objects;
 	FileWriter fw;
 	
-	// TODO: Why does Index ctor take in a fileName param?
-	// TODO: Your methods should probably handle the exceptions, not pass them on to the caller...
 	public Index (String fileName) throws IOException {
-		initialize (); // TODO: You should probably not call initialize in the constructor.
+		initialize ();
 	}
 	
 	public void initialize () throws IOException {
@@ -27,8 +25,6 @@ public class Index {
 		objects.put(fileName, newbie);
 		fw.append(fileName);
 		fw.append(" : " + newbie.name());
-		// TODO: Nothing is being written. Looks like you need to close your FIleWriter after you make a change.
-		// Additionally, probably best to open a new FileWriter each time you make a change, not to keep one in the global scope.
 	}
 	
 	public void writeIndex () throws IOException {
