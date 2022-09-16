@@ -33,8 +33,8 @@ class Tester {
 		}
 		Files.writeString(testerFile, "According to all known laws of aviation, there is no way a bee should be able to fly.");
 		
-//		if(Files.exists(Paths.get("objects"))) deleteDirectory(Paths.get("objects").toFile());
-//		if(Files.exists(Paths.get("index"))) Files.delete(Paths.get("index"));
+		if(Files.exists(Paths.get("objects"))) deleteDirectory(Paths.get("objects").toFile());
+		if(Files.exists(Paths.get("index"))) Files.delete(Paths.get("index"));
 		
 	}
 
