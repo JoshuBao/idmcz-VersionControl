@@ -3,8 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
-public class Tree {
-	public Tree(String[] entries) {
+public class MyTree {
+	public MyTree(String[] entries) {
 		StringBuilder builder = new StringBuilder();
 		for(String i : entries) {
 			builder.append(i).append('\n');

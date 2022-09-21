@@ -14,7 +14,7 @@ public class BlobTester {
 			"blob : a4ea325cb2b904d0f914125b3347ce094c54be61", // A Bug's Life
 			"blob : 8c9b13eb3c5b29cadc65dad4596fee04162c5d72" // The Emoji Movie
 		};
-		Tree tree = new Tree(str);
+		MyTree tree = new MyTree(str);
 	}
 }
 
