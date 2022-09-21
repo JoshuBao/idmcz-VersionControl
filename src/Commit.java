@@ -1,4 +1,5 @@
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -50,10 +51,15 @@ public class Commit {
 		return s;
 	}
 	
-	public void writer () {
-		FileWriter fw = new FileWriter("./objects/"+ sha1);//output file
+	public void writer () throws IOException {
+		FileWriter fw = new FileWriter("./objects/"+ sha);//output file
 		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
-		printW.write(s);
+		printW.write(pTree);
+		printW.write(parent);
+		printW.write(other);
+		printW.write(author);
+		printW.write(date);
+		printW.write(summary);
 		if(printW != null) {
 		   printW.flush();
 		   printW.close();
