@@ -16,7 +16,7 @@ public class Commit {
 	public String other;
 	
 	
-	public Commit (String pStuff, String sum, String aut, String par) {
+	public Commit (String pStuff, String sum, String aut, String par) throws IOException {
 		pTree = pStuff;
 		summary = sum;
 		author = aut;
