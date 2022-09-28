@@ -1,12 +1,10 @@
-package git;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class MyTree {
 	public String sha,con;
-	public MyTree(ArrayList<String> entries) {
+	public MyTree(String[] entries) {
 		StringBuilder builder = new StringBuilder();
 		for(String i : entries) {
 			builder.append(i).append('\n');
@@ -22,6 +20,6 @@ public class MyTree {
 		}
 	}
 	
-	public String getName () { return sha; }
-	public String contents () { return con; }
+	String getName () { return sha; }
+	String contents () { return con; }
 }
