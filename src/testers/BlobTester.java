@@ -1,5 +1,8 @@
+package testers;
 import java.io.IOException;
 import java.util.HashMap;
+
+import git.Blob;
 
 public class BlobTester {
 	public static void main(String [] args) throws IOException {

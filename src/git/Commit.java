@@ -1,9 +1,14 @@
+package git;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Commit {
@@ -14,19 +19,48 @@ public class Commit {
 	public String date;
 	public String sha;
 	public String other;
+	public String treePointer;
+	ArrayList<String> entries = ArrayList<String>();
 	
-	
-	public Commit (String pStuff, String sum, String aut, String par) throws IOException {
-		pTree = pStuff;
+	public Commit (String sum, String aut, String par) throws IOException {
+		
+		
+		
+		MyTree pTree = new MyTree(entries);
+		this.pTree = pTree.contents();
 		summary = sum;
 		author = aut;
 		parent = par;
-		date = getDate ();
+		date = getDate();
 		other = null;
-		sha = generate (pStuff,sum,aut,par);
+		sha = generate (this.pTree,sum,aut,par);
+		treePointer = "./objects/" + sha; 
 		writer ();
 	}
 	
+	
+	
+	public String[] entriesFromIndex()
+	{
+		entries
+		File index = new File("objects/index");
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(
+					"objects/Index.txt"));
+			String line = reader.readLine();
+			while (line != null) {
+				System.out.println(line);
+				// read next line
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+//	
 	public String generate (String p, String s, String a, String par) {
 		String input = p + ", " + s + ", " + a + ", " + par; 
 		try {
@@ -53,6 +87,7 @@ public class Commit {
 	
 	public void writer () throws IOException {
 		FileWriter fw = new FileWriter("./objects/"+ sha);//output file
+		
 		PrintWriter printW = new PrintWriter (fw);//writing stuff onto fw
 		printW.write(pTree);
 		printW.write(parent);

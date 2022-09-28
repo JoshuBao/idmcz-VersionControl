@@ -1,3 +1,5 @@
+package testers;
+import git.MyTree;
 
 public class TreeTester {
 
