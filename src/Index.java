@@ -13,7 +13,7 @@ public class Index {
 	
 	public void initialize () throws IOException {
 		fw = new FileWriter("index");//output file
-		File theDir = new File("/path/objects");
+		File theDir = new File("objects");
 		if (!theDir.exists()){
 		    theDir.mkdirs();
 		}
@@ -21,23 +21,36 @@ public class Index {
 	}
 	
 	public void addBlob (String fileName) throws IOException {
+		fw = new FileWriter("index");
 		Blob newbie = new Blob (fileName);
 		objects.put(fileName, newbie);
 		fw.append(fileName);
 		fw.append(" : " + newbie.name());
+		fw.close();
 	}
 	
 	public void writeIndex () throws IOException {
+		fw = new FileWriter("index");
 		for (String str : objects.keySet()) {
 			fw.append(str);
 			fw.append(" : " + objects.get(str).name());
 		}
+		fw.close();
 	}
 	
 	public void removeBlob (String fileName) throws IOException {
-		FileWriter fw2 = new FileWriter("./objects/"+objects.get(fileName).name());
-		fw2.close();
+		File fw2 = new File("./objects/"+objects.get(fileName).name());
+		fw2.delete();
 		objects.remove(fileName);
+		System.out.println(objects);
 		writeIndex ();
+	}
+	public static void main(String[] args) throws IOException
+	{
+		Index indy = new Index("WeeWoo");
+		indy.addBlob("BLOB1.txt");
+		indy.removeBlob("BLOB1.txt");
+		indy.addBlob("BLOB2.txt");
+		
 	}
 }
