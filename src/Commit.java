@@ -56,7 +56,7 @@ public class Commit {
 		}
 		else {
 	
-			parentSha1Hash = "test/objects/" + parent.getCommitHash();
+			parentSha1Hash = "objects/" + parent.getCommitHash();
 			setParent();
 		}
 	
@@ -68,11 +68,18 @@ public class Commit {
 		writeCommitFile();
 		
 	}
-	
+	public MyTree getTree()
+	{
+		return pTree;
+	}
 	public String[] makeTreeEntries()
 	{
-	
+		
 		ArrayList<String> temp = new ArrayList<String>();
+		if (parent != null)
+		{
+			temp.add("Tree : " + parent.getTree().getName());
+		}
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader("index"));
@@ -132,8 +139,6 @@ public class Commit {
 		this.child = child;
 	//	System.out.println("i ran");
 	}
-	
-	
 	
 	
 	//sha 1 creator
