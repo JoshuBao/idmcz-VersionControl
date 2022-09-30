@@ -78,7 +78,9 @@ public class Commit {
 			reader = new BufferedReader(new FileReader("index"));
 			String line = reader.readLine();
 			while (line != null) {
-				temp.add(line);
+				//Put into TREE FORMAT
+				
+				temp.add("Blob " + line.substring(line.indexOf(":")) + " " + line.substring(0, line.indexOf(":")));
 				System.out.println(line);
 				// read next line
 				line = reader.readLine();
@@ -108,10 +110,10 @@ public class Commit {
 			childSha1Hash = null;
 		}
 		else {
-			childSha1Hash = "test/objects/" + child.getCommitHash();
+			childSha1Hash = "objects/" + child.getCommitHash();
 			System.out.println("doasfjsOK" +  child);
 		}
-		PrintWriter pw = new PrintWriter("test/objects/" + sha1Hash);
+		PrintWriter pw = new PrintWriter("objects/" + sha1Hash);
 		pw.append(pTreeFileName + "\n");
 		pw.append(parentSha1Hash + "\n");
 		pw.append(childSha1Hash + "\n");
@@ -161,15 +163,29 @@ public class Commit {
 	}
 	public static void main(String[] args) throws FileNotFoundException {
 		
-//		Commit c1 = new Commit ("someTree", "first commit", "JBao", null);
-//		Commit c2 = new Commit ("somTree2", "WEEEEE commit", "JBao", c1);
-//		System.out.println("first commit child is" + c1.childSha1Hash);
-//		Commit c3 = new Commit ("someTree3", "good mesure", "JBAO", c2);
+		Commit c1 = new Commit ("first commit", "JBao", null);
+		Commit c2 = new Commit ("WEEEEE commit", "JBao", c1);
+		System.out.println("first commit child is" + c1.childSha1Hash);
+		Commit c3 = new Commit ("good mesure", "JBAO", c2);
 		
 		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // big L
