@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -66,7 +67,19 @@ public class Commit {
 		
 		
 		writeCommitFile();
+		//clears index at the end
+		try {
+			clearIndex();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+	}
+	public void clearIndex() throws IOException
+	{
+		File index = new File("Index");
+		index.delete();
+		index.createNewFile();
 	}
 	public MyTree getTree()
 	{
@@ -166,12 +179,17 @@ public class Commit {
 		return df.format(new Date());
 		
 	}
-	public static void main(String[] args) throws FileNotFoundException {
-		
+	public static void main(String[] args) throws IOException {
+		Index newBert = new Index("idalis out here w the random code fr");
+		newBert.initialize();
+		newBert.addBlob("BLOB1.txt");
+
+
 		Commit c1 = new Commit ("first commit", "JBao", null);
+		newBert.addBlob("BLOB2.txt");
 		Commit c2 = new Commit ("WEEEEE commit", "JBao", c1);
-		System.out.println("first commit child is" + c1.childSha1Hash);
-		Commit c3 = new Commit ("good mesure", "JBAO", c2);
+		//System.out.println("first commit child is" + c1.childSha1Hash);
+		//Commit c3 = new Commit ("good mesure", "JBAO", c2);
 		
 		
 	}
