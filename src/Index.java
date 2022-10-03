@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class Index {
@@ -21,25 +22,22 @@ public class Index {
 	}
 	
 	public void addBlob (String fileName) throws IOException {
-		fw = new FileWriter("index");
 		Blob newbie = new Blob (fileName);
 		objects.put(fileName, newbie);
-		fw.append(fileName);
-		fw.append(" : " + newbie.name());
-		fw.close();
+		writeIndex();
 	}
 	
 	public void writeIndex () throws IOException {
-		fw = new FileWriter("index");
+		PrintWriter pw = new PrintWriter("index");
 		for (String str : objects.keySet()) {
-			fw.append(str);
-			fw.append(" : " + objects.get(str).name());
+			pw.append(str + " : " + objects.get(str).name() + "\n");
 		}
-		fw.close();
+		pw.flush();
+		pw.close();
 	}
 	
 	public void removeBlob (String fileName) throws IOException {
-		File fw2 = new File("./objects/"+objects.get(fileName).name());
+		File fw2 = new File("objects/"+objects.get(fileName).name());
 		fw2.delete();
 		objects.remove(fileName);
 		System.out.println(objects);
@@ -49,8 +47,10 @@ public class Index {
 	{
 		Index indy = new Index("WeeWoo");
 		indy.addBlob("BLOB1.txt");
-		indy.removeBlob("BLOB1.txt");
+//		indy.removeBlob("BLOB1.txt");
 		indy.addBlob("BLOB2.txt");
+		indy.removeBlob("BLOB2.txt");
+		
 		
 	}
 }
