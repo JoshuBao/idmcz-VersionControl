@@ -20,7 +20,11 @@ public class Index {
 		}
 		objects = new HashMap <String, Blob>();
 	}
-	
+	public void clearIndex()
+	{
+		
+		objects = new HashMap<String,Blob>();
+	}
 	public void addBlob (String fileName) throws IOException {
 		Blob newbie = new Blob (fileName);
 		objects.put(fileName, newbie);

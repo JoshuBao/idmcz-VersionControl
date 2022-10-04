@@ -67,20 +67,9 @@ public class Commit {
 		
 		
 		writeCommitFile();
-		//clears index at the end
-		try {
-			clearIndex();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+
 	}
-	public void clearIndex() throws IOException
-	{
-		File index = new File("Index");
-		index.delete();
-		index.createNewFile();
-	}
+
 	public MyTree getTree()
 	{
 		return pTree;
