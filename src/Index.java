@@ -22,11 +22,12 @@ public class Index {
 	}
 	public static void clearIndex() throws IOException
 	{
-		
+			
 			objects = new HashMap<String,Blob>();
 			File index = new File("Index");
 			index.delete();
 			index.createNewFile();
+			System.out.println("i ran wah");
 	
 	}
 	public void addBlob (String fileName) throws IOException {

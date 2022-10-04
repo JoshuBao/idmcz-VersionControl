@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Commit {
 	MyTree pTree;
@@ -19,13 +20,12 @@ public class Commit {
 	String summary;
 	String author;
 	String date;
-	Commit parent ;
-	Commit child;
+
 	String sha1Hash;
 	String parentSha1Hash;
 	String childSha1Hash;
 	boolean isHead;
-	public Commit(String summary,String author, Commit parent) throws FileNotFoundException
+	public Commit(String summary,String author, String parent) throws FileNotFoundException
 	{
 		
 		if (parent == null)
@@ -34,7 +34,8 @@ public class Commit {
 		}
 		else
 			isHead = false;
-		child = null;
+		
+		childSha1Hash = null;
 		
 		
 		//Tree Time
@@ -48,39 +49,40 @@ public class Commit {
 		this.author = author;
 		this.date = getDate();
 		
-		this.parent = parent;
 	
-	
-		if (this.parent == null)
+		if (parent == null)
 		{
 			parentSha1Hash = null;
 		}
 		else {
 	
-			parentSha1Hash = "objects/" + parent.getCommitHash();
-			setParent();
+			parentSha1Hash = "objects/" + parent;
+		
 		}
 	
 		
 		//generates the sha1 based on contents of commit
 		sha1Hash = encryptThisString(getSubsetFileContents());
-		
-		
+	
 		writeCommitFile();
+		
 
 	}
-
+	
 	public MyTree getTree()
 	{
 		return pTree;
 	}
-	public String[] makeTreeEntries()
+	public String[] makeTreeEntries() throws FileNotFoundException
 	{
 		
 		ArrayList<String> temp = new ArrayList<String>();
-		if (parent != null)
+		if (parentSha1Hash != null)
 		{
-			temp.add("Tree : " + parent.getTree().getName());
+			File parentCommit = new File("objects/" + parentSha1Hash);
+			Scanner scan = new Scanner(parentCommit);
+			String tree = scan.nextLine();
+			temp.add("Tree : " + tree);
 		}
 		BufferedReader reader;
 		try {
@@ -114,14 +116,14 @@ public class Commit {
 	}
 	public void writeCommitFile() throws FileNotFoundException
 	{
-		if (child == null)
-		{
-			childSha1Hash = null;
-		}
-		else {
-			childSha1Hash = "objects/" + child.getCommitHash();
-			System.out.println("doasfjsOK" +  child);
-		}
+//		if (childSha1Hash == null)
+//		{
+//			childSha1Hash = null;
+//		}
+//		else {
+//			childSha1Hash = "objects/" + child.getCommitHash();
+//			System.out.println("doasfjsOK" +  child);
+//		}
 		PrintWriter pw = new PrintWriter("objects/" + sha1Hash);
 		pw.append(pTreeFileName + "\n");
 		pw.append(parentSha1Hash + "\n");
@@ -131,18 +133,18 @@ public class Commit {
 		pw.append(summary);
 		pw.close();
 	}
-	private void setParent () throws FileNotFoundException{
-			parent.setChild(this);	
-			parent.writeCommitFile();
-	
-	}
-	
-	private void setChild (Commit child) {
-		this.child = child;
-	//	System.out.println("i ran");
-	}
-	
-	
+//	private void setParent () throws FileNotFoundException{
+//			parent.setChild(sha1Hash);	
+//			parent.writeCommitFile();
+//	
+//	}
+//	
+//	private void setChild (Commit child) {
+//		this.child = child;
+//	//	System.out.println("i ran");
+//	}
+//	
+//	
 	//sha 1 creator
 	public static String encryptThisString(String input)
 	{
@@ -176,7 +178,7 @@ public class Commit {
 
 		Commit c1 = new Commit ("first commit", "JBao", null);
 		newBert.addBlob("BLOB2.txt");
-		Commit c2 = new Commit ("WEEEEE commit", "JBao", c1);
+	//	Commit c2 = new Commit ("WEEEEE commit", "JBao", c1);
 		//System.out.println("first commit child is" + c1.childSha1Hash);
 		//Commit c3 = new Commit ("good mesure", "JBAO", c2);
 		
