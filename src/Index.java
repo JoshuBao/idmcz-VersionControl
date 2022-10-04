@@ -27,7 +27,7 @@ public class Index {
 			File index = new File("Index");
 			index.delete();
 			index.createNewFile();
-			System.out.println("i ran wah");
+			//System.out.println("i ran wah");
 	
 	}
 	public void addBlob (String fileName) throws IOException {

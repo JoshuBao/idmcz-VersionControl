@@ -84,11 +84,15 @@ public class Git {
 		Git git = new Git();
 		git.add("BLOB1.txt");
 		git.createCommit("first commit", "JBao", null);
-		System.out.println("after first commit");
+		//System.out.println("after first commit");
 	
 		git.add("BLOB2.txt");
 		git.createCommit("seccond commit", "JBao", "");
-		System.out.println("after second commit");
+	//	System.out.println("after second commit");
+		git.add("BLOB3.txt");
+		git.createCommit("third commit", "JBao", "");
+		git.add("BLOB4.txt");
+		git.createCommit("fourth commit", "JBao", "");
 		
 	}
 }
