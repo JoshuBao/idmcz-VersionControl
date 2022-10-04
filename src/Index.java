@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class Index {
-	HashMap<String, Blob> objects;
+	static HashMap<String, Blob> objects;
 	FileWriter fw;
 	
 	public Index (String fileName) throws IOException {
@@ -20,10 +20,14 @@ public class Index {
 		}
 		objects = new HashMap <String, Blob>();
 	}
-	public void clearIndex()
+	public static void clearIndex() throws IOException
 	{
 		
-		objects = new HashMap<String,Blob>();
+			objects = new HashMap<String,Blob>();
+			File index = new File("Index");
+			index.delete();
+			index.createNewFile();
+	
 	}
 	public void addBlob (String fileName) throws IOException {
 		Blob newbie = new Blob (fileName);
