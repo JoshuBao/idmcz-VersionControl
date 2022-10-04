@@ -77,13 +77,12 @@ public class Commit {
 	{
 		
 		ArrayList<String> temp = new ArrayList<String>();
-		if (parentSha1Hash != null)
-		{
-			File parentCommit = new File("objects/" + parentSha1Hash);
-			Scanner scan = new Scanner(parentCommit);
-			String tree = scan.nextLine();
-			temp.add("Tree : " + tree);
-		}
+//		if (parentSha1Hash != null)
+//		{
+//			
+//			temp.add("Tree : " + tree);
+//			System.out.println(tree);
+//		}
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader(new FileReader("index"));

@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,23 +78,61 @@ public class Git {
 		FileWriter fw = new FileWriter(parentCommit);
 		fw.append(tree + "\n" + parent + "\n" + childFileName + "\n" + author  + "\n" + date + "\n" + summary);
 		fw.close();
+		
+		File currentPerson = new File("objects/" + childFileName);
+		Scanner scan2 = new Scanner(currentPerson);
+		appendTree(tree,scan2.nextLine());
 	}
+	public void appendTree(String parentTree,String currentTree) throws IOException
+	{
+		File parento = new File("objects/" + currentTree);
+		Scanner scan = new Scanner(parento);
+		String tree = scan.nextLine();
+		FileWriter fw = new FileWriter(parento);
 	
+	
+		BufferedReader reader;
+		String special = "Tree : " + parentTree + "\n";
+		try {
+			reader = new BufferedReader(new FileReader("index"));
+			String line = reader.readLine();
+			while (line != null) {
+				//Put into TREE FORMAT
+				
+				special += "Blob " + line.substring(line.indexOf(":")) + " " + line.substring(0, line.indexOf(":")) + "\n";
+				
+				// read next line
+				line = reader.readLine();
+				
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		fw.append(special);
+		fw.flush();
+		fw.close();
+		
+		
+		
+	}
 	
 	public static void main(String[] args) throws IOException
 	{
 		Git git = new Git();
 		git.add("BLOB1.txt");
+
 		git.createCommit("first commit", "JBao", null);
 		//System.out.println("after first commit");
-	
 		git.add("BLOB2.txt");
+	
 		git.createCommit("seccond commit", "JBao", "");
-	//	System.out.println("after second commit");
 		git.add("BLOB3.txt");
 		git.createCommit("third commit", "JBao", "");
 		git.add("BLOB4.txt");
 		git.createCommit("fourth commit", "JBao", "");
 		
+	//	System.out.println("after second commit");
+
 	}
 }
